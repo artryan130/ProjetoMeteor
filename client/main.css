@@ -2,3 +2,51 @@ body {
   padding: 10px;
   font-family: sans-serif;
 }
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  height: 90vh;
+  justify-content: center;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form > div {
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.login-form > div > input {
+  flex-grow: 1;
+  box-sizing: border-box;
+  padding: 10px 6px;
+  background: transparent;
+  border: 1px solid #aaa;
+  width: 100%;
+  font-size: 1em;
+  margin-right: 16px;
+  margin-top: 4px;
+}
+
+.login-form > div > button {
+  background-color: black;
+  color: white;
+  width: 80%;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.login-content > div > button {
+  background-color: transparent;
+  border: none;
+  margin: 8px;
+  cursor: pointer;
+}
