@@ -7,7 +7,7 @@ export const LoginForm = () => {
     const [password, setPassword] = useState('')
 
     const submit = e => {
-        e.prevet.default();
+        e.preventDefault()
 
         Meteor.loginWithPassword(username, password);
     };
@@ -47,5 +47,4 @@ export const LoginForm = () => {
 
         </div>   
     )
-
 }
