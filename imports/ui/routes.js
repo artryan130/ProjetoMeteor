@@ -1,15 +1,15 @@
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import React from 'react';
-import {App}  from './App'
+import {App} from './App'
 import  {LoginForm}  from "./LoginForm";
  
-export const renderRoutes = () => {
-     return (   
-        <BrowserRouter>
-        <Switch>
-            <Route exact path="/" component={App} />
-            {/* <Route exact path="/login" component={LoginForm} /> */}
-        </Switch>
-        </BrowserRouter>
+export const RenderRoutes = () => {
+    return (   
+        <Router>
+            <Switch>
+                <Route path="/login" component={LoginForm} />
+                <Route exact path="/" component={App} />
+            </Switch>
+        </Router>
     ) 
 };
