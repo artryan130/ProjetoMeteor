@@ -5,10 +5,6 @@ export const LoginForm = (props) => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-
-    if(Meteor.user) {
-        props.history.push('/')
-    }
     
     const submit = e => {
         e.preventDefault()
