@@ -84,3 +84,22 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.insert-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.insert-form {
+  margin-top: 200px;
+}
+
+.insert-form > button {
+  background-color: black;
+  color: white;
+  width: 100%;
+  font-size: 1.2rem;
+  cursor: pointer;
+}

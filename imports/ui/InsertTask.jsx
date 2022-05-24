@@ -10,26 +10,26 @@ export const InsertTask = () => {
         e.preventDefault()
         if (!task) return;
 
-        console.log(task)
         Meteor.call('tasks.insert', task)
 
         setTask("");
+
     };
 
 
     return (
-        <form onSubmit={submit}>
-            <div>
+        <div className='insert-container'>
+            <h1>Adicionar Tarefas</h1>
+
+            <form onSubmit={submit} className='insert-form'>
                 <Input 
                 type='text'
-                placeholder='Digite sua tarefa'
+                placeholder='Digite aqui sua tarefa'
                 value={task}
                 onChange={e => setTask(e.target.value)}
                 />
-            </div>
-            <div>
-                <button type='submit'>Entrar</button>
-            </div>
-        </form>
+                <button type='submit'>Adicionar</button>
+            </form>
+    </div>
     )
 }
