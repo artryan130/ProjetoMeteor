@@ -12,7 +12,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 
 export default function SingleCard(props, index) {
 
-    const { primary, secondary } = props
+    const { task, taskSubtitle } = props
 
     return (
           <ul key={index}>
@@ -23,8 +23,8 @@ export default function SingleCard(props, index) {
                         <AssignmentIcon />
                         </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={primary} secondary={secondary} />
-                        <MoreVertIcon onClick={() => console.log('Editar ou excluir')}/>
+                        <ListItemText primary={task} secondary={taskSubtitle} />
+                        <MoreVertIcon onClick={() => console.log('Editar ou excluir')} />
                     </ListItem>
               </List>
           </ul>        

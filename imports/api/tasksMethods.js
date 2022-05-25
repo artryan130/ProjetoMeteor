@@ -3,8 +3,9 @@ import { check } from 'meteor/check';
 import { TasksCollection } from '../db/TasksCollection';
 
 Meteor.methods({
-    'tasks.insert'(task) {
+    'tasks.insert'(task, taskSubtitle) {
         check(task, String);
+        check(taskSubtitle, String);
 
         if(!this.userId) {
             throw new Meteor.Error('Not Authorized.')
@@ -12,6 +13,7 @@ Meteor.methods({
 
         TasksCollection.insert({
             task,
+            taskSubtitle,
             createdAt: new Date,
             userId: this.userId
         })

@@ -1,26 +1,18 @@
 import React from 'react'
 import SingleCard from './SingleCard'
+import { useTracker } from 'meteor/react-meteor-data';
+import { TasksCollection } from '../db/TasksCollection';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
+import { Meteor } from 'meteor/meteor';
 
 export default function TodoList() {
   
-    const itens = [
-        {
-            primary: 'Levar cão para passear',
-            secondary: 'Joao Pedro de Jesus'
-        },
-        {
-            primary: 'Prova de eletromagnetismo',
-            secondary: 'Arthur Ryan'
-        },
-        {
-            primary: 'Estágio Synergia',
-            secondary: 'Joao Lucas'
-        },
-
-    ]
-
+    const { itens } = useTracker(() => {
+        const handler = Meteor.subscribe('tasks');
+        const itens = TasksCollection.find().fetch();
+        return {itens};
+    })
 
   const generateList = () => {
     return itens.map((e,index) => SingleCard(e, index))
