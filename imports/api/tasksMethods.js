@@ -18,4 +18,17 @@ Meteor.methods({
             userId: this.userId
         })
     },
+
+    'tasks.edit'(task, taskSubtitle, _id) {
+        check(task, String);
+        check(taskSubtitle, String);
+
+        if(!this.userId) {
+            throw new Meteor.Error('Not Authorized.')
+        }
+
+        TasksCollection.update(_id, {
+            $set: {task: task, taskSubtitle:taskSubtitle}
+        })
+    },
 });

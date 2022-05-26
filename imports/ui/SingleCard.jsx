@@ -6,6 +6,7 @@ import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PositionedMenu from './components/PositionedMenu'
 
 export default function SingleCard(props, index) {
 
@@ -21,7 +22,8 @@ export default function SingleCard(props, index) {
                         </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={task} secondary={taskSubtitle} />
-                        <MoreVertIcon onClick={() => console.log('Editar ou excluir')} />
+                        {/* <MoreVertIcon onClick={() => console.log('Editar ou excluir')} /> */}
+                        <PositionedMenu props={props} />
                     </ListItem>
               </List>
           </ul>        

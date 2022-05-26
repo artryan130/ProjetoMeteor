@@ -6,6 +6,7 @@ import TodoList from "./TodoList";
 import {InsertTask} from './InsertTask'
 import { Meteor } from 'meteor/meteor';
 import {render} from 'react-dom';
+import {EditTask} from './EditTask'
 
 Meteor.startup(() => {
     render(<Router>
@@ -13,6 +14,7 @@ Meteor.startup(() => {
                 <Route path ='/todo' component={TodoList} />
                 <Route path="/login" component={LoginForm} />
                 <Route path='/insert' component={InsertTask} />
+                <Route path='/edit' component={EditTask} />
                 <Route exact path="/" component={App} />
             </Switch>
     </Router>, document.getElementById('react-target'));
