@@ -6,7 +6,7 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 
-export default function TodoList() {
+export default function TodoList() {  
   
     const { itens } = useTracker(() => {
         const handler = Meteor.subscribe('tasks');
