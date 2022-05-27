@@ -31,4 +31,20 @@ Meteor.methods({
             $set: {task: task, taskSubtitle:taskSubtitle}
         })
     },
+
+    'tasks.remove'(taskId) {
+        check(taskId, String);
+    
+        if (!this.userId) {
+            throw new Meteor.Error('Not authorized.');
+        }
+
+        const task = TasksCollection.findOne({ _id: taskId, userId: this.userId })
+    
+        if(!task) {
+            throw new Meteor.Error('Access Denied.')
+        }
+
+        TasksCollection.remove(taskId);
+    },
 });

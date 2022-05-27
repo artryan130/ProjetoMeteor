@@ -6,7 +6,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { EditTask } from '../EditTask';
 import { Link } from 'react-router-dom';
 
-export default function PositionedMenu(props) {
+export default function PositionedMenu({ onDeleteClick, iten }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -42,11 +42,11 @@ export default function PositionedMenu(props) {
           horizontal: 'left',
         }}
       >
-        <Link to='/edit' params={props}>
+        <Link to='/edit'>
           <MenuItem onClick={handleClose}>Editar</MenuItem>
         </Link>
         
-        <MenuItem onClick={handleClose}>Excluir</MenuItem>
+        <MenuItem onClick={() => onDeleteClick(iten)}>Excluir</MenuItem>
       </Menu>
     </div>
   );

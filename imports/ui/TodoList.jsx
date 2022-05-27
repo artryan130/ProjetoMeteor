@@ -6,6 +6,9 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 
+
+const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
+
 export default function TodoList() {  
   
     const { itens } = useTracker(() => {
@@ -14,9 +17,11 @@ export default function TodoList() {
         return {itens};
     })
 
-  const generateList = () => {
-    return itens.map((e,index) => SingleCard(e, index))
-  }
+
+    const generateList = () => {
+        // return itens.map((e,index) => SingleCard(e, index))
+        return itens.map(itens => <SingleCard  iten={itens} key={ itens._id } task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onDeleteClick={deleteTask}/>)
+    }
   
     return (
         <div>
