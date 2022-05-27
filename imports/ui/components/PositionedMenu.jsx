@@ -4,9 +4,13 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { EditTask } from '../EditTask';
-import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+
 
 export default function PositionedMenu({ onDeleteClick, iten }) {
+  
+  const history = useHistory();
+  
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -42,9 +46,8 @@ export default function PositionedMenu({ onDeleteClick, iten }) {
           horizontal: 'left',
         }}
       >
-        <Link to='/edit'>
-          <MenuItem onClick={handleClose}>Editar</MenuItem>
-        </Link>
+        
+        <MenuItem onClick={() => history.push({pathname: '/edit', state: { task: iten.task, taskSubtitle: iten.taskSubtitle, _id: iten._id} })}>Editar</MenuItem>
         
         <MenuItem onClick={() => onDeleteClick(iten)}>Excluir</MenuItem>
       </Menu>

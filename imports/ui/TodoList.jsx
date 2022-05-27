@@ -8,6 +8,7 @@ import { Meteor } from 'meteor/meteor';
 
 
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
+const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
 
 export default function TodoList() {  
   
@@ -20,7 +21,7 @@ export default function TodoList() {
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
-        return itens.map(itens => <SingleCard  iten={itens} key={ itens._id } task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onDeleteClick={deleteTask}/>)
+        return itens.map(itens => <SingleCard  iten={itens} task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onDeleteClick={deleteTask} onEditClick={editTask}/>)
     }
   
     return (

@@ -8,10 +8,10 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PositionedMenu from './components/PositionedMenu'
 
-export default function SingleCard({ iten, key, task, taskSubtitle, onDeleteClick }) {
+export default function SingleCard({ iten, task, taskSubtitle, onDeleteClick, onEditClick }) {
 
     return (
-          <ul key={key}>
+          <ul key={iten._id}>
               <List sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3' }}>
                 <ListItem >
                         <ListItemAvatar>
@@ -20,7 +20,7 @@ export default function SingleCard({ iten, key, task, taskSubtitle, onDeleteClic
                         </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={task} secondary={taskSubtitle} />
-                        <PositionedMenu  onDeleteClick={onDeleteClick} iten={iten}/>
+                        <PositionedMenu  onDeleteClick={onDeleteClick} iten={iten} onEditClick={onEditClick}/>
                     </ListItem>
               </List>
           </ul>        

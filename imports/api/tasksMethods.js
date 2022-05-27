@@ -19,7 +19,7 @@ Meteor.methods({
         })
     },
 
-    'tasks.edit'(task, taskSubtitle, _id) {
+    'tasks.edit'(task, taskSubtitle, taskId) {
         check(task, String);
         check(taskSubtitle, String);
 
@@ -27,7 +27,7 @@ Meteor.methods({
             throw new Meteor.Error('Not Authorized.')
         }
 
-        TasksCollection.update(_id, {
+        TasksCollection.update(taskId, {
             $set: {task: task, taskSubtitle:taskSubtitle}
         })
     },
