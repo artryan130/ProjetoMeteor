@@ -15,7 +15,8 @@ Meteor.methods({
             task,
             taskSubtitle,
             createdAt: new Date,
-            userId: this.userId
+            userId: this.userId,
+            userName: this.userName
         })
     },
 

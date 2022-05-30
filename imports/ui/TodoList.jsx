@@ -21,7 +21,7 @@ export default function TodoList() {
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
-        return itens.map(itens => <SingleCard  iten={itens} task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onDeleteClick={deleteTask} onEditClick={editTask}/>)
+        return itens.map(itens => <SingleCard  key={itens._id} iten={itens} task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onDeleteClick={deleteTask} onEditClick={editTask}/>)
     }
   
     return (

@@ -11,8 +11,8 @@ import PositionedMenu from './components/PositionedMenu'
 export default function SingleCard({ iten, task, taskSubtitle, onDeleteClick, onEditClick }) {
 
     return (
-          <ul key={iten._id}>
-              <List sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3' }}>
+          <ul>
+              <List sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3' }} >
                 <ListItem >
                         <ListItemAvatar>
                         <Avatar sx={{ bgcolor: 'green' }} variant="rounded">
