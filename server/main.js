@@ -9,7 +9,6 @@ const insertTask = (taskText, user) =>
     text: taskText,
     userId: user._id,
     createdAt: new Date(),
-    name: user.username
 });
 
 

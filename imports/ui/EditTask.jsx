@@ -57,27 +57,54 @@ export const EditTask = () => {
         content = (
             <>
                 <div className='edit-container'>
-                <h1>Visualização da tarefa</h1>
+                <h1>Visualização da tarefa "{location.state.task}" </h1>
 
                 <form className='edit-form'>
-                    <Input 
-                    type='text'
-                    name='task'
-                    placeholder='Digite aqui sua tarefa'
-                    defaultValue={location.state.task}
-                    onChange={handleChange}
-                    disabled
-                    />
-                    <Input 
-                    type='text'
-                    name='taskSubtitle'
-                    placeholder='Digite aqui seu subtitulo'
-                    defaultValue={location.state.taskSubtitle}
-                    onChange={handleChange}
-                    disabled
-                    />
+                    <div className='edit-label'>
+                        <label>
+                            Nome:
+                        </label>
+                        <Input 
+                        type='text'
+                        name='task'
+                        placeholder='Digite aqui sua tarefa'
+                        defaultValue={location.state.task}
+                        onChange={handleChange}
+                        disabled
+                        />
+                    </div>
+                    
+
+                    <div className='edit-label'>
+                        <label>
+                            Descrição:   
+                        </label>
+                        <Input 
+                            type='text'
+                            name='taskSubtitle'
+                            placeholder='Digite aqui seu subtitulo'
+                            defaultValue={location.state.taskSubtitle}
+                            onChange={handleChange}
+                            disabled
+                        />
+                    </div>
+
+                    <div className='edit-label'>
+                        <label>
+                            Data:    
+                        </label>
+                        <Input 
+                            type='text'
+                            name='taskDate'
+                            defaultValue={location.state.date}
+                            disabled
+                        />
+                    </div>
+                    
                 </form>
-                <button onClick={startEdit}>Editar</button>
+                <div className='edit-buttons'>
+                    <button onClick={startEdit}>Editar</button>
+                </div>
                 </div>
             </>
         )
@@ -88,21 +115,37 @@ export const EditTask = () => {
                 <h1>Editação da tarefa</h1>
 
                 <form onSubmit={submit} className='edit-form'>
-                    <Input 
-                    type='text'
-                    name='task'
-                    placeholder='Digite aqui sua tarefa'
-                    defaultValue={location.state.task}
-                    onChange={handleChange}
-                    />
-                    <Input 
-                    type='text'
-                    name='taskSubtitle'
-                    placeholder='Digite aqui seu subtitulo'
-                    defaultValue={location.state.taskSubtitle}
-                    onChange={handleChange}
-                    />
-                    <button type='submit'>Finalizar</button>
+                    <div className='edit-label'>
+                        <label>
+                            Nome:
+                        </label>
+                        <Input 
+                        type='text'
+                        name='task'
+                        placeholder='Digite aqui sua tarefa'
+                        defaultValue={location.state.task}
+                        onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className='edit-label'>
+                        <label>
+                            Descrição:
+                        </label>
+                        <Input 
+                        type='text'
+                        name='taskSubtitle'
+                        placeholder='Digite aqui seu subtitulo'
+                        defaultValue={location.state.taskSubtitle}
+                        onChange={handleChange}
+                        />
+                    </div>
+
+                    <div className='edit-buttons'>
+                        <button type='submit'>Finalizar</button>
+                        <button onClick={() => history.push('/todo')}>Cancelar</button>
+                    </div>
+                    
                 </form>
             </div>
             
