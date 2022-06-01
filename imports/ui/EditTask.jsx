@@ -104,6 +104,7 @@ export const EditTask = () => {
                 </form>
                 <div className='edit-buttons'>
                     <button onClick={startEdit}>Editar</button>
+                    <button onClick={() => history.push('/todo')}>Cancelar</button>
                 </div>
                 </div>
             </>

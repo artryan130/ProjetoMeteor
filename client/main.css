@@ -93,7 +93,7 @@ body {
 }
 
 .insert-form {
-  margin-top: 200px;
+  margin-top: 130px;
 }
 
 .insert-form > button {
@@ -102,6 +102,35 @@ body {
   width: 100%;
   font-size: 1.2rem;
   cursor: pointer;
+}
+
+.insert-label {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: #D3D3D3;
+  width: 500px;
+  height: 70px;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.insert-label > label {
+  padding: 20px;
+}
+
+.insert-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.insert-buttons > button {
+  margin: 200px 50px 0px 50px;
+  background-color: #D3D3D3;
+  width: 100px;
+  height: 30px;
+  transition: 0.4s;
 }
 
 .edit-container{
@@ -128,7 +157,13 @@ body {
   align-items: center;
   background-color: #D3D3D3;
   width: 500px;
+  height: 70px;
   margin-bottom: 1rem;
+  border-radius: 10px;
+}
+
+.edit-label > label {
+  padding: 20px;
 }
 
 .edit-buttons {
@@ -138,7 +173,7 @@ body {
 }
 
 .edit-buttons > button {
-  margin: 200px 50px 0px 50px;
+  margin: 150px 50px 0px 50px;
   background-color: #D3D3D3;
   width: 100px;
   height: 30px;

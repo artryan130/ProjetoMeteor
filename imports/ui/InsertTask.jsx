@@ -28,19 +28,34 @@ export const InsertTask = () => {
             <h1>Adicionar Tarefas</h1>
 
             <form onSubmit={submit} className='insert-form'>
-                <Input 
-                type='text'
-                placeholder='Digite aqui sua tarefa'
-                value={task}
-                onChange={e => setTask(e.target.value)}
-                />
+                <div className='insert-label'>
+                    <label>
+                        Nome:
+                    </label>
+                    <Input 
+                    type='text'
+                    placeholder='Digite aqui sua tarefa'
+                    value={task}
+                    onChange={e => setTask(e.target.value)}
+                    />
+                </div>
+
+                <div className='insert-label'>
+                    <label>
+                        Descrição:
+                    </label>
                 <Input 
                 type='text'
                 placeholder='Digite aqui seu subtitulo'
                 value={taskSubtitle}
                 onChange={e => setTaskSubtitle(e.target.value)}
                 />
-                <button type='submit'>Adicionar</button>
+                </div>
+
+                <div className='edit-buttons'>
+                    <button type='submit'>Adicionar</button>
+                    <button onClick={() => history.push('/todo')}>Cancelar</button>
+                </div>
             </form>
     </div>
     )
