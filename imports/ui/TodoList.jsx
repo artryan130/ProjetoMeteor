@@ -28,27 +28,6 @@ export default function TodoList() {
 
     const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
 
-    // const  { itens } = useTracker(() => {
-    //     const noDataAvailable = { tasks: [] };
-    //     if (!Meteor.user()) {
-    //       return noDataAvailable;
-    //     }
-    //     const handler = Meteor.subscribe('tasks');
-    
-    //     if (!handler.ready()) {
-    //       return { ...noDataAvailable };
-    //     }
-    
-    //     const itens = TasksCollection.find(
-    //       hideCompleted ? pendingOnlyFilter : userFilter,
-    //       {
-    //         sort: { createdAt: -1 },
-    //       }
-    //     ).fetch();
-    
-    //         return { itens };
-    //   });
-
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
@@ -62,11 +41,11 @@ export default function TodoList() {
                 <Box className='item'>{generateList()}</Box>
             </Box>
 
-            <Box>
+            {/* <Box>
                 <button onClick={() => setHideCompleted(!hideCompleted)}>
                     {hideCompleted ? 'Show all' : 'Hide Completed'}
                 </button>
-            </Box>
+            </Box> */}
                 
 
             <Box className='add'>

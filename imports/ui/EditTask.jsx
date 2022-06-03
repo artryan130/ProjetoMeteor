@@ -27,7 +27,7 @@ export const EditTask = () => {
         e.preventDefault()
         if (!task) return;
 
-        Meteor.call('tasks.edit', task.task, task.taskSubtitle, location.state._id)
+        Meteor.call('tasks.edit', task.task, task.taskSubtitle, location.state._id, location.state.userId)
 
         setTask("");
 

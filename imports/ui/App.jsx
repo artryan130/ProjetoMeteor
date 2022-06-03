@@ -33,7 +33,7 @@ const hideCompletedFilter = { isChecked: { $ne: true} };
             <Fragment>
               <Box className='app-content'>
                 <Box className='Title'>
-                  <h1>Seja bem vindo ao nosso sistema To do List!</h1>
+                  <h1>Seja bem vindo ao nosso sistema To do List {user.username}!</h1>
                   <h2>Gostaria de ir para as tarefas?</h2>
                 </Box>
 

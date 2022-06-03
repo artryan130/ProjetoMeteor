@@ -54,7 +54,7 @@ export default function PositionedMenu({ onDeleteClick, iten }) {
         }}
       >
         
-        <MenuItem onClick={() => history.push({pathname: '/edit', state: { task: iten.task, taskSubtitle: iten.taskSubtitle, _id: iten._id, date: dataAtualFormatada(iten.createdAt)} })}>Editar</MenuItem>
+        <MenuItem onClick={() => history.push({pathname: '/edit', state: { task: iten.task, taskSubtitle: iten.taskSubtitle, userId: iten.userId, _id: iten._id, date: dataAtualFormatada(iten.createdAt)} })}>Editar</MenuItem>
         
         <MenuItem onClick={() => onDeleteClick(iten)}>Excluir</MenuItem>
       </Menu>

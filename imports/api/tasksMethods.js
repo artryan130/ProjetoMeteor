@@ -20,11 +20,15 @@ Meteor.methods({
         })
     },
 
-    'tasks.edit'(task, taskSubtitle, taskId) {
+    'tasks.edit'(task, taskSubtitle, taskId, userId) {
         check(task, String);
         check(taskSubtitle, String);
 
         if(!this.userId) {
+            throw new Meteor.Error('Not Authorized.')
+        }
+
+        if(this.userId !== userId){
             throw new Meteor.Error('Not Authorized.')
         }
 
