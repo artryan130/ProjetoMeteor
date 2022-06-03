@@ -4,6 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import { useHistory } from "react-router-dom";
 import { Box } from '@mui/material'; 
 import { FormLabel } from '@mui/material';
+import { Button } from '@mui/material';
 
 export const InsertTask = () => {
 
@@ -55,8 +56,8 @@ export const InsertTask = () => {
                 </Box>
 
                 <Box className='edit-buttons'>
-                    <button type='submit'>Adicionar</button>
-                    <button onClick={() => history.push('/todo')}>Cancelar</button>
+                    <Button type='submit'>Adicionar</Button>
+                    <Button onClick={() => history.push('/todo')}>Cancelar</Button>
                 </Box>
             </form>
     </Box>
