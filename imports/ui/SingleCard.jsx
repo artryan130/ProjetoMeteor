@@ -8,7 +8,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PositionedMenu from './components/PositionedMenu'
 
-export default function SingleCard({ iten, task, taskSubtitle, onDeleteClick, onEditClick }) {
+export default function SingleCard({ iten, task, taskSubtitle, onDeleteClick, onEditClick, onCheckboxClick }) {
 
     return (
           <ul>
@@ -20,7 +20,13 @@ export default function SingleCard({ iten, task, taskSubtitle, onDeleteClick, on
                         </Avatar>
                         </ListItemAvatar>
                         <ListItemText primary={task} secondary={taskSubtitle} />
-                        <PositionedMenu  onDeleteClick={onDeleteClick} iten={iten} onEditClick={onEditClick}/>
+                        <input 
+                            type="checkbox"
+                            checked={!!iten.isChecked}
+                            onClick={() => onCheckboxClick(iten)}
+                            readOnly
+                        />
+                        <PositionedMenu  onDeleteClick={onDeleteClick} iten={iten} onEditClick={onEditClick} />
                     </ListItem>
               </List>
           </ul>        

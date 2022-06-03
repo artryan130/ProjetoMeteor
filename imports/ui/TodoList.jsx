@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import SingleCard from './SingleCard'
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '../db/TasksCollection';
@@ -9,6 +9,7 @@ import { Box } from '@mui/material';
 
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
+const togleChecked = ({ _id, isChecked }) => Meteor.call('tasks.setIsChecked', _id, !isChecked);
 
 export default function TodoList() {  
   
@@ -17,11 +18,41 @@ export default function TodoList() {
         const itens = TasksCollection.find().fetch();
         return {itens};
     })
+    const user = useTracker(()=> Meteor.user())
+
+    const [hideCompleted, setHideCompleted] = useState(false);
+
+    const hideCompletedFilter = { isChecked: { $ne: true} };
+
+    const userFilter = user ? {userId: user._id} : {}
+
+    const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
+
+    // const  { itens } = useTracker(() => {
+    //     const noDataAvailable = { tasks: [] };
+    //     if (!Meteor.user()) {
+    //       return noDataAvailable;
+    //     }
+    //     const handler = Meteor.subscribe('tasks');
+    
+    //     if (!handler.ready()) {
+    //       return { ...noDataAvailable };
+    //     }
+    
+    //     const itens = TasksCollection.find(
+    //       hideCompleted ? pendingOnlyFilter : userFilter,
+    //       {
+    //         sort: { createdAt: -1 },
+    //       }
+    //     ).fetch();
+    
+    //         return { itens };
+    //   });
 
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
-        return itens.map(itens => <SingleCard  key={itens._id} iten={itens} task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onDeleteClick={deleteTask} onEditClick={editTask}/>)
+        return itens.map(itens => <SingleCard  key={itens._id} iten={itens} task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onCheckboxClick={togleChecked} onDeleteClick={deleteTask} onEditClick={editTask}/>)
     }
   
     return (
@@ -30,6 +61,13 @@ export default function TodoList() {
                 <h1>Tarefas Cadastradas</h1>
                 <Box className='item'>{generateList()}</Box>
             </Box>
+
+            <Box>
+                <button onClick={() => setHideCompleted(!hideCompleted)}>
+                    {hideCompleted ? 'Show all' : 'Hide Completed'}
+                </button>
+            </Box>
+                
 
             <Box className='add'>
                 <Link to='/insert'>
