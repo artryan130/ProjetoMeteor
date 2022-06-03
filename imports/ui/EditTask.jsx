@@ -1,8 +1,10 @@
-import Input from '@mui/material/Input';
+import { Input } from '@mui/material';
 import React, {useState, useEffect} from 'react'
 import { Meteor } from 'meteor/meteor';
 import { useHistory } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import { Box } from '@mui/material';
+import { Button } from '@mui/material';
 
 export const EditTask = () => {
 
@@ -56,11 +58,11 @@ export const EditTask = () => {
     if(edit === 'false') {
         content = (
             <>
-                <div className='edit-container'>
+                <Box className='edit-container'>
                 <h1>Visualização da tarefa "{location.state.task}" </h1>
 
                 <form className='edit-form'>
-                    <div className='edit-label'>
+                    <Box className='edit-label'>
                         <label>
                             Nome:
                         </label>
@@ -72,10 +74,10 @@ export const EditTask = () => {
                         onChange={handleChange}
                         disabled
                         />
-                    </div>
+                    </Box>
                     
 
-                    <div className='edit-label'>
+                    <Box className='edit-label'>
                         <label>
                             Descrição:   
                         </label>
@@ -87,9 +89,9 @@ export const EditTask = () => {
                             onChange={handleChange}
                             disabled
                         />
-                    </div>
+                    </Box>
 
-                    <div className='edit-label'>
+                    <Box className='edit-label'>
                         <label>
                             Data:    
                         </label>
@@ -99,24 +101,24 @@ export const EditTask = () => {
                             defaultValue={location.state.date}
                             disabled
                         />
-                    </div>
+                    </Box>
                     
                 </form>
-                <div className='edit-buttons'>
-                    <button onClick={startEdit}>Editar</button>
-                    <button onClick={() => history.push('/todo')}>Cancelar</button>
-                </div>
-                </div>
+                <Box className='edit-buttons'>
+                    <Button onClick={startEdit}>Editar</Button>
+                    <Button onClick={() => history.push('/todo')}>Cancelar</Button>
+                </Box>
+                </Box>
             </>
         )
     } else {
         content = (
             <>
-            <div className='edit-container'>
+            <Box className='edit-container'>
                 <h1>Editação da tarefa</h1>
 
                 <form onSubmit={submit} className='edit-form'>
-                    <div className='edit-label'>
+                    <Box className='edit-label'>
                         <label>
                             Nome:
                         </label>
@@ -127,9 +129,9 @@ export const EditTask = () => {
                         defaultValue={location.state.task}
                         onChange={handleChange}
                         />
-                    </div>
+                    </Box>
 
-                    <div className='edit-label'>
+                    <Box className='edit-label'>
                         <label>
                             Descrição:
                         </label>
@@ -140,23 +142,23 @@ export const EditTask = () => {
                         defaultValue={location.state.taskSubtitle}
                         onChange={handleChange}
                         />
-                    </div>
+                    </Box>
 
-                    <div className='edit-buttons'>
-                        <button type='submit'>Finalizar</button>
-                        <button onClick={() => history.push('/todo')}>Cancelar</button>
-                    </div>
+                    <Box className='edit-buttons'>
+                        <Button type='submit'>Finalizar</Button>
+                        <Button onClick={() => history.push('/todo')}>Cancelar</Button>
+                    </Box>
                     
                 </form>
-            </div>
+            </Box>
             
             </>
         )
     }
 
     return (
-        <div>
+        <Box>
             {content}
-        </div>
+        </Box>
     )
 }

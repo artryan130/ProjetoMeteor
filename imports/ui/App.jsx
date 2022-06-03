@@ -3,6 +3,7 @@ import { useTracker } from 'meteor/react-meteor-data';
 import  { LoginForm } from './LoginForm';
 import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
+import { Box } from '@mui/material';
 
 export const App = (props) => {
   const logout = () => Meteor.logout();
@@ -10,32 +11,32 @@ export const App = (props) => {
   // const redirect = props.history.push('/')
 
   return (
-    <div className="main">
+    <Box className="main">
         {user ? 
           (
             <Fragment>
-              <div className='app-content'>
-                <div className='Title'>
+              <Box className='app-content'>
+                <Box className='Title'>
                   <h1>Seja bem vindo ao nosso sistema To do List!</h1>
                   <h2>Gostaria de ir para as tarefas?</h2>
-                </div>
+                </Box>
 
-                <div className='Link'>
+                <Box className='Link'>
                   <Link to='/todo'>Acessar todo list</Link>
-                </div>
+                </Box>
                 
 
-                <div className="Logout" onClick={logout}>
+                <Box className="Logout" onClick={logout}>
                   {'Logout'} 🚪
-                </div>
-              </div>
+                </Box>
+              </Box>
               
               </Fragment>
           ) : (
             <LoginForm/>
           ) 
       }
-    </div>
+    </Box>
   )
 }
   

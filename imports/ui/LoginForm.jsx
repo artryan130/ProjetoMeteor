@@ -1,5 +1,7 @@
+import { Box, Button } from '@mui/material';
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react'
+import { Input } from '@mui/material';
 
 export const LoginForm = (props) => {
 
@@ -17,38 +19,38 @@ export const LoginForm = (props) => {
     };
 
     return (
-        <div className='login-content'>
+        <Box className='login-content'>
             <h1>Bem vindo ao todo list!</h1>
             <form onSubmit={submit} className='login-form'>
-                <div>
-                    <input
+                <Box>
+                    <Input
                     type='text'
                     placeholder='Username'
                     name='username'
                     required
                     onChange={e => setUsername(e.target.value)}
                     />
-                </div>
-                <div>
-                    <input
+                </Box>
+                <Box>
+                    <Input
                         type='password'
                         placeholder='Password'
                         name='password'
                         required
                         onChange={e => setPassword(e.target.value)}
                     />
-                </div>
-                <div>
-                    <button type='submit'>Entrar</button>
-                </div>
+                </Box>
+                <Box>
+                    <Button type='submit'>Entrar</Button>
+                </Box>
             </form>
-            <div>
-                <button>Cadastrar</button>
-            </div>
-            <div>
-                <button>Esqueci minha senha</button>
-            </div>
+            <Box>
+                <Button>Cadastrar</Button>
+            </Box>
+            <Box>
+                <Button>Esqueci minha senha</Button>
+            </Box>
 
-        </div>   
+        </Box>   
     )
 }

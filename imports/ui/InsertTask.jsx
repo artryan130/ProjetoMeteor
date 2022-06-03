@@ -2,6 +2,8 @@ import Input from '@mui/material/Input';
 import React, {useState} from 'react'
 import { Meteor } from 'meteor/meteor';
 import { useHistory } from "react-router-dom";
+import { Box } from '@mui/material'; 
+import { FormLabel } from '@mui/material';
 
 export const InsertTask = () => {
 
@@ -24,39 +26,39 @@ export const InsertTask = () => {
 
 
     return (
-        <div className='insert-container'>
+        <Box className='insert-container'>
             <h1>Adicionar Tarefas</h1>
 
             <form onSubmit={submit} className='insert-form'>
-                <div className='insert-label'>
-                    <label>
+                <Box className='insert-label'>
+                    <FormLabel>
                         Nome:
-                    </label>
+                    </FormLabel>
                     <Input 
                     type='text'
                     placeholder='Digite aqui sua tarefa'
                     value={task}
                     onChange={e => setTask(e.target.value)}
                     />
-                </div>
+                </Box>
 
-                <div className='insert-label'>
-                    <label>
+                <Box className='insert-label'>
+                    <FormLabel>
                         Descrição:
-                    </label>
+                    </FormLabel>
                 <Input 
                 type='text'
                 placeholder='Digite aqui seu subtitulo'
                 value={taskSubtitle}
                 onChange={e => setTaskSubtitle(e.target.value)}
                 />
-                </div>
+                </Box>
 
-                <div className='edit-buttons'>
+                <Box className='edit-buttons'>
                     <button type='submit'>Adicionar</button>
                     <button onClick={() => history.push('/todo')}>Cancelar</button>
-                </div>
+                </Box>
             </form>
-    </div>
+    </Box>
     )
 }

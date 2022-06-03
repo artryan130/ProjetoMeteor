@@ -5,7 +5,7 @@ import { TasksCollection } from '../db/TasksCollection';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
-
+import { Box } from '@mui/material';
 
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
@@ -25,18 +25,23 @@ export default function TodoList() {
     }
   
     return (
-        <div>
-            <div className='list'>
+        <Box>
+            <Box className='list'>
                 <h1>Tarefas Cadastradas</h1>
-                <div className='item'>{generateList()}</div>
-            </div>
+                <Box className='item'>{generateList()}</Box>
+            </Box>
 
-            <div className='add'>
+            <Box className='add'>
                 <Link to='/insert'>
-                    <AddCircleOutlineIcon sx={{ color: 'green', fontSize: 50, right: '40px', position: 'absolute'}}/>
+                    <AddCircleOutlineIcon sx={{ 
+                        color: 'green', 
+                        fontSize: 50, 
+                        right: '40px', 
+                        position: 'absolute'}}
+                    />
                 </Link>
-            </div>
-        </div>
+            </Box>
+        </Box>
         
         
     )

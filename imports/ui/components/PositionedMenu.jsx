@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { EditTask } from '../EditTask';
 import { useHistory } from "react-router-dom";
-
+import { Box } from '@mui/material';
 
 export default function PositionedMenu({ onDeleteClick, iten }) {
   
@@ -28,7 +28,7 @@ export default function PositionedMenu({ onDeleteClick, iten }) {
   }
 
   return (
-    <div>
+    <Box>
       <Button
         id="demo-positioned-button"
         aria-controls={open ? 'demo-positioned-menu' : undefined}
@@ -58,6 +58,6 @@ export default function PositionedMenu({ onDeleteClick, iten }) {
         
         <MenuItem onClick={() => onDeleteClick(iten)}>Excluir</MenuItem>
       </Menu>
-    </div>
+    </Box>
   );
 }
