@@ -2,27 +2,29 @@ import { Box, Button } from '@mui/material';
 import { Meteor } from 'meteor/meteor';
 import React, { useState } from 'react'
 import { Input } from '@mui/material';
-import { Link } from 'react-router-dom';
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { Accounts } from 'meteor/accounts-base';
+import { useHistory } from "react-router-dom";
 
-export const LoginForm = (props) => {
-
+export const RegisterForm = () => {
+    
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     
+    const history = useHistory();
+
     const submit = e => {
         e.preventDefault()
 
-        Meteor.loginWithPassword(username, password, (e,r)=> {
-            if(!e) {
-                props.history.push('/')
-            }
-        } );
-    };
+        Accounts.createUser({username: username, password: password})
+
+        history.push('/')
+
+    }
 
     return (
+
         <Box className='login-content'>
-            <h1>Bem vindo ao todo list!</h1>
+            <h1>Bem vindo ao cadastro!</h1>
             <form onSubmit={submit} className='login-form'>
                 <Box>
                     <Input
@@ -46,21 +48,7 @@ export const LoginForm = (props) => {
                     <Button type='submit'>Entrar</Button>
                 </Box>
             </form>
-            <Box>
-                {/* <Button onClick={() => history.push('/register')}>Cadastrar</Button> */}
-                <Link to='/register'>
-                    <AddCircleOutlineIcon sx={{ 
-                        color: 'green', 
-                        fontSize: 50, 
-                        right: '40px', 
-                        position: 'absolute'}}
-                    />
-                </Link>
-            </Box>
-            <Box>
-                <Button>Esqueci minha senha</Button>
-            </Box>
-
-        </Box>   
+        </Box> 
     )
+
 }

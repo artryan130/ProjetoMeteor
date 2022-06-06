@@ -3,6 +3,7 @@ import SingleCard from './SingleCard'
 import { useTracker } from 'meteor/react-meteor-data';
 import { TasksCollection } from '../db/TasksCollection';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Box } from '@mui/material';
@@ -14,20 +15,21 @@ const togleChecked = ({ _id, isChecked }) => Meteor.call('tasks.setIsChecked', _
 export default function TodoList() {  
   
     const { itens } = useTracker(() => {
+        const noDataAvailable = { itens: []};
+        if (!Meteor.user()) {
+        return noDataAvailable;
+    }
         const handler = Meteor.subscribe('tasks');
+
+        if (!handler.ready()) {
+            return { ...noDataAvailable};
+        }
+
         const itens = TasksCollection.find().fetch();
         return {itens};
     })
+
     const user = useTracker(()=> Meteor.user())
-
-    const [hideCompleted, setHideCompleted] = useState(false);
-
-    const hideCompletedFilter = { isChecked: { $ne: true} };
-
-    const userFilter = user ? {userId: user._id} : {}
-
-    const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
-
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
@@ -41,13 +43,6 @@ export default function TodoList() {
                 <Box className='item'>{generateList()}</Box>
             </Box>
 
-            {/* <Box>
-                <button onClick={() => setHideCompleted(!hideCompleted)}>
-                    {hideCompleted ? 'Show all' : 'Hide Completed'}
-                </button>
-            </Box> */}
-                
-
             <Box className='add'>
                 <Link to='/insert'>
                     <AddCircleOutlineIcon sx={{ 
@@ -58,8 +53,17 @@ export default function TodoList() {
                     />
                 </Link>
             </Box>
-        </Box>
-        
-        
+
+            <Box className='add'>
+                <Link to='/profile'>
+                    <AccountCircleIcon sx={{ 
+                        color: 'green', 
+                        fontSize: 50, 
+                        left: '40px', 
+                        position: 'absolute'}}
+                    />
+                </Link>
+            </Box>
+        </Box>   
     )
 }
