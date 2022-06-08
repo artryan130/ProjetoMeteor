@@ -71,4 +71,27 @@ Meteor.methods({
             } 
         });
     },
+    'user.edit'(userId, username, email, data, sexo, empresa) {
+        check(username, String)
+        check(email, String);
+        check(data, String)
+        check(sexo, String);
+        check(empresa, String);
+
+        
+        // if (!this.userId) {
+        //     throw new Meteor.Error('Not authorized.');
+        // }
+
+        Meteor.users.update(userId, {
+            $set: {
+                username,
+                email,
+                data,
+                sexo,
+                empresa,
+            }
+        });        
+
+    }
 });
