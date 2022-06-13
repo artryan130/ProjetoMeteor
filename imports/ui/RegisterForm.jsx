@@ -9,13 +9,19 @@ export const RegisterForm = () => {
     
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    
+    const [profile, setProfile] = useState({
+        email: 'none',
+        data: '01/01/2001',
+        sexo: 'none',
+        empresa: 'none'
+    })
+
     const history = useHistory();
 
     const submit = e => {
         e.preventDefault()
 
-        Accounts.createUser({username: username, password: password})
+        Accounts.createUser({username: username, password: password, profile: profile})
 
         history.push('/')
 

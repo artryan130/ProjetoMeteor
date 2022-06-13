@@ -8,7 +8,7 @@ import { Meteor } from 'meteor/meteor';
 import {render} from 'react-dom';
 import {EditTask} from './EditTask'
 import {RegisterForm} from './RegisterForm'
-import ProfileForm from './ProfileForm'
+import {ProfileForm} from './ProfileForm'
 
 Meteor.startup(() => {
     render(<Router>

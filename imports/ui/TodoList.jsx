@@ -7,13 +7,17 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Link } from 'react-router-dom';
 import { Meteor } from 'meteor/meteor';
 import { Box } from '@mui/material';
+import { Button } from '@mui/material';
+import { useHistory } from "react-router-dom";
 
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
 const togleChecked = ({ _id, isChecked }) => Meteor.call('tasks.setIsChecked', _id, !isChecked);
 
 export default function TodoList() {  
-  
+
+    const history = useHistory();
+
     const { itens } = useTracker(() => {
         const noDataAvailable = { itens: []};
         if (!Meteor.user()) {
@@ -55,14 +59,15 @@ export default function TodoList() {
             </Box>
 
             <Box className='add'>
-                <Link to='/profile'>
+                {/* <Link to='/profile'> */}
+                <Button onClick={() => history.push('/profile')}>
                     <AccountCircleIcon sx={{ 
                         color: 'green', 
                         fontSize: 50, 
                         left: '40px', 
                         position: 'absolute'}}
                     />
-                </Link>
+                </Button>
             </Box>
         </Box>   
     )
