@@ -22,7 +22,8 @@ export const ProfileForm = () => {
         email: '',
         data: '',
         sexo: '',
-        empresa: '' 
+        empresa: '', 
+        foto: '', 
     })
 
     useEffect(() => {
@@ -59,12 +60,13 @@ export const ProfileForm = () => {
         }
     }
 
-    function setDados(email, data, sexo, empresa) {
+    function setDados(email, data, sexo, empresa, foto) {
         const newData = {
             email: email,
             data: data, 
             sexo: sexo,
             empresa: empresa,
+            foto: foto
         };
 
         Meteor.users.update(user._id, {
@@ -72,17 +74,42 @@ export const ProfileForm = () => {
         });
     };
 
+    let base64code = ""
+    const onChange = e => {
+      const files = e.target.files;
+      const file = files[0];
+      getBase64(file);
+    };
+   
+    const onLoad = fileString => {
+      console.log(fileString);
+      this.base64code = fileString
+      setUserProfile({...userProfile, 
+        foto: fileString
+    })
+
+    };
+   
+    const getBase64 = file => {
+      let reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        onLoad(reader.result);
+      };
+    };
+
     const submit = e => {
         e.preventDefault()
         if (!user) return;
         
-        setDados(userProfile.email, userProfile.data, userProfile.sexo, userProfile.empresa);
+        setDados(userProfile.email, userProfile.data, userProfile.sexo, userProfile.empresa, userProfile.foto);
 
         setUserProfile("");
 
         history.push('/todo')
     };
 
+    
     let content = ''
         if(edit == false) {
             content = (
@@ -90,6 +117,10 @@ export const ProfileForm = () => {
                     <Box>
                         <h1>Este aqui são seus dados atuais</h1>
                         <form>
+                            <Box>
+                                <img src={user?.profile.foto} />
+                            </Box>
+
                             <Box>
                                 <label>
                                     Nome:
@@ -165,13 +196,21 @@ export const ProfileForm = () => {
                         <h1>Editar seus dados</h1>
                         <form onSubmit={submit}>
                             <Box>
+                                <form className='image-profile'>
+                                    <input type="file" onChange={onChange} />
+                                    <img src={this.base64code}/>
+                                    {/* <textarea rows="50" cols="50" defaultValue={this.base64code}></textarea> */}
+                                </form>
+                            </Box>
+
+                            <Box>
                                 <label>
                                     Nome:
                                 </label>
                                 <Input 
                                 type='text'
                                 name='username'
-                                defaultValue={user?.profile.username}
+                                defaultValue={user?.username}
                                 onChange={handleChange}
                                 />
                             </Box>
@@ -244,6 +283,7 @@ export const ProfileForm = () => {
 
     return (
         <Box>
+            {console.log(user)}
             {content}
         </Box>
     )
