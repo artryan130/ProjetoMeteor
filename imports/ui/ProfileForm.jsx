@@ -117,8 +117,8 @@ export const ProfileForm = () => {
                     <Box>
                         <h1>Este aqui são seus dados atuais</h1>
                         <form>
-                            <Box>
-                                <img src={user?.profile.foto} />
+                            <Box >
+                                <img src={user?.profile.foto} className='image-profile' />
                             </Box>
 
                             <Box>
@@ -196,9 +196,9 @@ export const ProfileForm = () => {
                         <h1>Editar seus dados</h1>
                         <form onSubmit={submit}>
                             <Box>
-                                <form className='image-profile'>
+                                <form>
                                     <input type="file" onChange={onChange} />
-                                    <img src={this.base64code}/>
+                                    <img src={this.base64code} className='image-profile'/>
                                     {/* <textarea rows="50" cols="50" defaultValue={this.base64code}></textarea> */}
                                 </form>
                             </Box>

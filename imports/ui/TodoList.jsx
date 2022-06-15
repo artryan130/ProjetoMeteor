@@ -10,6 +10,7 @@ import { Box } from '@mui/material';
 import { Button } from '@mui/material';
 import { useHistory } from "react-router-dom";
 
+
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
 const togleChecked = ({ _id, isChecked }) => Meteor.call('tasks.setIsChecked', _id, !isChecked);

@@ -5,7 +5,7 @@ import { Meteor } from 'meteor/meteor';
 import { Link } from 'react-router-dom';
 import { Box } from '@mui/material';
 import { TasksCollection } from '../db/TasksCollection';
-
+import PersistentDrawerLeft from '../ui/components/Drawer'
 
 export const App = (props) => {
   const logout = () => Meteor.logout();
@@ -32,11 +32,13 @@ const hideCompletedFilter = { isChecked: { $ne: true} };
           (
             <Fragment>
               <Box className='app-content'>
+                <PersistentDrawerLeft />
                 <Box className='Title'>
                   <h1>Seja bem vindo ao nosso sistema To do List {user.username}!</h1>
                   <h2>Gostaria de ir para as tarefas?</h2>
                 </Box>
 
+                
                 <Box className='box-view'>
                   <Box className='box-card'>
                     Total de tarefas cadastradas: {totalTasksCount}

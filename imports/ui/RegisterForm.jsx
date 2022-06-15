@@ -51,7 +51,7 @@ export const RegisterForm = () => {
                     />
                 </Box>
                 <Box>
-                    <Button type='submit'>Entrar</Button>
+                    <Button type='submit'>Cadastrar</Button>
                 </Box>
             </form>
         </Box> 
