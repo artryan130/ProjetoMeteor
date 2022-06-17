@@ -9,13 +9,15 @@ import { Meteor } from 'meteor/meteor';
 import { Box } from '@mui/material';
 import { Button } from '@mui/material';
 import { useHistory } from "react-router-dom";
-
+import TextField from '@mui/material/TextField';
 
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
 const togleChecked = ({ _id, isChecked }) => Meteor.call('tasks.setIsChecked', _id, !isChecked);
 
 export default function TodoList() {  
+
+    const [search, setSearch] = useState('')
 
     const history = useHistory();
 
@@ -24,8 +26,7 @@ export default function TodoList() {
         if (!Meteor.user()) {
         return noDataAvailable;
     }
-        const handler = Meteor.subscribe('tasks');
-
+        const handler = Meteor.subscribe('tasks', search);
         if (!handler.ready()) {
             return { ...noDataAvailable};
         }
@@ -40,11 +41,16 @@ export default function TodoList() {
         // return itens.map((e,index) => SingleCard(e, index))
         return itens.map(itens => <SingleCard  key={itens._id} iten={itens} task={ itens.task }  taskSubtitle={ itens.taskSubtitle } onCheckboxClick={togleChecked} onDeleteClick={deleteTask} onEditClick={editTask}/>)
     }
+
+    const handleChange = e => {
+        setSearch(e.target.value)
+    } 
   
     return (
         <Box>
             <Box className='list'>
                 <h1>Tarefas Cadastradas</h1>
+                <TextField id="outlined-basic" label="Pesquisar" variant="outlined" onChange={handleChange} name="search"/>
                 <Box className='item'>{generateList()}</Box>
             </Box>
 

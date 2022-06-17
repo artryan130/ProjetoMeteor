@@ -192,18 +192,18 @@ export const ProfileForm = () => {
         }else {
             content = (
                 <>
-                    <Box>
+                    <Box className='box-box'>
                         <h1>Editar seus dados</h1>
                         <form onSubmit={submit}>
                             <Box>
-                                <form>
-                                    <input type="file" onChange={onChange} />
+                                <form className='form-form'>
+                                    <input type="file" onChange={onChange} defaultValue={user?.foto}/>
                                     <img src={this.base64code} className='image-profile'/>
                                     {/* <textarea rows="50" cols="50" defaultValue={this.base64code}></textarea> */}
                                 </form>
                             </Box>
 
-                            <Box>
+                            <Box sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3', marginBottom: 2, marginTop: 2 }} >
                                 <label>
                                     Nome:
                                 </label>
@@ -215,7 +215,7 @@ export const ProfileForm = () => {
                                 />
                             </Box>
 
-                            <Box>
+                            <Box sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3', marginBottom: 2 }}>
                                 <label>
                                     Email:
                                 </label>
@@ -227,7 +227,7 @@ export const ProfileForm = () => {
                                 />
                             </Box>
 
-                            <Box>
+                            <Box sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3', marginBottom: 2 }}>
                                 <label>
                                     Data de nascimento:
                                 </label>
@@ -255,7 +255,7 @@ export const ProfileForm = () => {
                                 </FormControl>
                             </Box>
 
-                            <Box>
+                            <Box sx={{ width: '800px', maxWidth: 500, bgcolor: '#D3D3D3', marginTop: 2 }}>
                                 <label>
                                     Empresa:
                                 </label>
