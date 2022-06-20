@@ -17,6 +17,16 @@ const togleChecked = ({ _id, isChecked }) => Meteor.call('tasks.setIsChecked', _
 
 export default function TodoList() {  
 
+    const user = useTracker(()=> Meteor.user())
+
+    const [hideCompleted, setHideCompleted] = useState(false);
+
+    const hideCompletedFilter = { isChecked: { $ne: true} };
+
+    const userFilter = user ? {userId: user._id} : {}
+
+    const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
+
     const [search, setSearch] = useState('')
 
     const history = useHistory();
@@ -31,11 +41,14 @@ export default function TodoList() {
             return { ...noDataAvailable};
         }
 
-        const itens = TasksCollection.find().fetch();
+        const itens = TasksCollection.find(hideCompleted ? pendingOnlyFilter : userFilter,
+            {
+              sort: { createdAt: -1 },
+            }).fetch();
         return {itens};
     })
 
-    const user = useTracker(()=> Meteor.user())
+    
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
@@ -51,6 +64,13 @@ export default function TodoList() {
             <Box className='list'>
                 <h1>Tarefas Cadastradas</h1>
                 <TextField id="outlined-basic" label="Pesquisar" variant="outlined" onChange={handleChange} name="search"/>
+
+                <div className='filter'>
+                <button onClick={() => setHideCompleted(!hideCompleted)}>
+                  {hideCompleted ? 'Show all' : 'Hide Completed'}
+                </button>
+              </div>
+
                 <Box className='item'>{generateList()}</Box>
             </Box>
 

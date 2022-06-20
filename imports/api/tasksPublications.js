@@ -4,10 +4,10 @@ import { TasksCollection } from '/imports/db/TasksCollection';
 Meteor.publish('tasks', function publishTasks(task) {
   return TasksCollection.find({
     $nor: [
-      {userId: this.userId},
-      {task: {$ne: 'Tarefa do Artryan'}}
+      {userId: {$ne: this.userId  }},
+      {task: {$ne: task }}
     ]
-  });
+  }, {sort: {priority: 1}, skip: 0, limit: 4});
 });
 
 // Meteor.publish('task', function findTask(task) {
