@@ -65,11 +65,11 @@ export default function TodoList() {
                 <h1>Tarefas Cadastradas</h1>
                 <TextField id="outlined-basic" label="Pesquisar" variant="outlined" onChange={handleChange} name="search"/>
 
-                <div className='filter'>
+                <Box className='filter' sx={{marginTop: 1}}>
                 <button onClick={() => setHideCompleted(!hideCompleted)}>
                   {hideCompleted ? 'Show all' : 'Hide Completed'}
                 </button>
-              </div>
+              </Box>
 
                 <Box className='item'>{generateList()}</Box>
             </Box>

@@ -283,7 +283,6 @@ export const ProfileForm = () => {
 
     return (
         <Box>
-            {console.log(user)}
             {content}
         </Box>
     )
