@@ -3,9 +3,10 @@ import { check } from 'meteor/check';
 import { TasksCollection } from '../db/TasksCollection';
 
 Meteor.methods({
-    'tasks.insert'(task, taskSubtitle) {
+    'tasks.insert'(task, taskSubtitle,personal) {
         check(task, String);
         check(taskSubtitle, String);
+        check(personal, Boolean);
 
         if(!this.userId) {
             throw new Meteor.Error('Not Authorized.')
@@ -16,6 +17,8 @@ Meteor.methods({
             taskSubtitle,
             createdAt: new Date,
             userId: this.userId,
+            personal,
+            isChecked: false
         })
     },
 

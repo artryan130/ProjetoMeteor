@@ -5,6 +5,8 @@ import { useHistory } from "react-router-dom";
 import { Box } from '@mui/material'; 
 import { FormLabel } from '@mui/material';
 import { Button } from '@mui/material';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
 
 export const InsertTask = () => {
 
@@ -13,11 +15,17 @@ export const InsertTask = () => {
     const [task, setTask] = useState('')
     const [taskSubtitle, setTaskSubtitle] = useState('')
 
+    const [personal, setPersonal] = useState(false)
+
+    const handleChange = (event) => {
+        setPersonal(event.target.checked);
+      };
+
     const submit = e => {
         e.preventDefault()
         if (!task) return;
 
-        Meteor.call('tasks.insert', task, taskSubtitle)
+        Meteor.call('tasks.insert', task, taskSubtitle, personal)
 
         setTask("");
 
@@ -53,6 +61,19 @@ export const InsertTask = () => {
                 value={taskSubtitle}
                 onChange={e => setTaskSubtitle(e.target.value)}
                 />
+                </Box>
+
+                <Box>
+                    <FormControlLabel
+                        value="start"
+                        control={<Switch
+                            checked={personal}
+                            onChange={handleChange}
+                            inputProps={{ 'aria-label': 'controlled' }} />
+                        }
+                        label="Tarefa pessoal? "
+                        labelPlacement="start"
+                    />
                 </Box>
 
                 <Box className='edit-buttons'>

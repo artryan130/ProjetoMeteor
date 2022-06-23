@@ -11,20 +11,52 @@ export const App = (props) => {
   const logout = () => Meteor.logout();
   const user = useTracker(() => Meteor.user());
   
-  const { itens } = useTracker(() => {
-    const itens = TasksCollection.find().fetch();
-    return {itens};
-})
+  const [hideCompleted, setHideCompleted] = useState(false);
 
-const hideCompletedFilter = { isChecked: { $ne: true} };
+  const hideCompletedFilter = { isChecked: { $ne: true} };
 
   const userFilter = user ? {userId: user._id} : {}
 
   const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
 
-  const totalTasksCount = TasksCollection.find().count();
-  const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
-  const concluidTaskCount = totalTasksCount - pendingTasksCount;
+  const { tasks, totalTasksCount, pendingTasksCount, isLoading, concluidTaskCount } = useTracker(() => {
+    const noDataAvailable = { tasks: [], pendingTasksCount: 0, totalTasksCount: 0,  concluidTaskCount: 0 };
+    if (!Meteor.user()) {
+      return noDataAvailable;
+    }
+    const handler = Meteor.subscribe('tasks');
+
+    if (!handler.ready()) {
+      return { ...noDataAvailable, isLoading: true };
+    }
+
+    const tasks = TasksCollection.find(
+      hideCompleted ? pendingOnlyFilter : userFilter,
+      {
+        sort: { createdAt: -1 },
+      }
+    ).fetch();
+    const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
+    const totalTasksCount = TasksCollection.count();
+    const concluidTaskCount = totalTasksCount - pendingTasksCount;
+
+    return { totalTasksCount, pendingTasksCount, concluidTaskCount };
+  });
+
+//   const { itens } = useTracker(() => {
+//     const itens = TasksCollection.find().fetch();
+//     return {itens};
+// })
+
+// const hideCompletedFilter = { isChecked: { $ne: true} };
+
+//   const userFilter = user ? {userId: user._id} : {}
+
+//   const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
+
+//   const totalTasksCount = TasksCollection.find().count();
+//   const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
+//   const concluidTaskCount = totalTasksCount - pendingTasksCount;
 
   return (
     <Box className="main">
@@ -37,7 +69,6 @@ const hideCompletedFilter = { isChecked: { $ne: true} };
                   <h1>Seja bem vindo ao nosso sistema To do List {user.username}!</h1>
                   <h2>Gostaria de ir para as tarefas?</h2>
                 </Box>
-
                 
                 <Box className='box-view'>
                   <Box className='box-card'>
