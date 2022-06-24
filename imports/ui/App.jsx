@@ -10,53 +10,37 @@ import PersistentDrawerLeft from '../ui/components/Drawer'
 export const App = (props) => {
   const logout = () => Meteor.logout();
   const user = useTracker(() => Meteor.user());
-  
-  const [hideCompleted, setHideCompleted] = useState(false);
 
-  const hideCompletedFilter = { isChecked: { $ne: true} };
-
-  const userFilter = user ? {userId: user._id} : {}
-
-  const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
-
-  const { tasks, totalTasksCount, pendingTasksCount, isLoading, concluidTaskCount } = useTracker(() => {
-    const noDataAvailable = { tasks: [], pendingTasksCount: 0, totalTasksCount: 0,  concluidTaskCount: 0 };
+  const { tasks } = useTracker(() => {
+    const noDataAvailable = { tasks: [] };
     if (!Meteor.user()) {
       return noDataAvailable;
     }
     const handler = Meteor.subscribe('tasks');
 
     if (!handler.ready()) {
-      return { ...noDataAvailable, isLoading: true };
+      return { ...noDataAvailable};
     }
+  
+    const tasks = TasksCollection.find().fetch();
+    // const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
+    // const totalTasksCount = TasksCollection.count();
+    // const concluidTaskCount = totalTasksCount - pendingTasksCount;
 
-    const tasks = TasksCollection.find(
-      hideCompleted ? pendingOnlyFilter : userFilter,
-      {
-        sort: { createdAt: -1 },
-      }
-    ).fetch();
-    const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
-    const totalTasksCount = TasksCollection.count();
-    const concluidTaskCount = totalTasksCount - pendingTasksCount;
-
-    return { totalTasksCount, pendingTasksCount, concluidTaskCount };
+    return { tasks };
   });
 
-//   const { itens } = useTracker(() => {
-//     const itens = TasksCollection.find().fetch();
-//     return {itens};
-// })
+  const cadastradas = tasks.filter((iten) => iten.situation === 'Cadastrada')
 
-// const hideCompletedFilter = { isChecked: { $ne: true} };
+  const cadastradasTasksCount = cadastradas.length
 
-//   const userFilter = user ? {userId: user._id} : {}
+  const andamento = tasks.filter((iten) => iten.situation === 'Em andamento')
 
-//   const pendingOnlyFilter = {...hideCompletedFilter, ...userFilter};
+  const andamentoTasksCount = andamento.length
 
-//   const totalTasksCount = TasksCollection.find().count();
-//   const pendingTasksCount = TasksCollection.find(pendingOnlyFilter).count();
-//   const concluidTaskCount = totalTasksCount - pendingTasksCount;
+  const concluidas = tasks.filter((iten) => iten.situation === 'Concluida')
+
+  const concluidasTasksCount = concluidas.length
 
   return (
     <Box className="main">
@@ -72,17 +56,17 @@ export const App = (props) => {
                 
                 <Box className='box-view'>
                   <Box className='box-card'>
-                    Total de tarefas cadastradas: {totalTasksCount}
+                    Total de tarefas cadastradas: {cadastradasTasksCount}
                   </Box>
 
                   <Box className='box-card'>
-                    Total de tarefas concluidas: {concluidTaskCount}
+                    Total de tarefas concluidas: {concluidasTasksCount}
                   </Box>
                 </Box>
 
                 <Box className='box-view'>
                   <Box className='box-card'>
-                    Total de tarefas em aberto: {pendingTasksCount}
+                    Total de tarefas em andamento: {andamentoTasksCount}
                   </Box>
 
                   <Box className='box-card'>

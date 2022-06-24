@@ -18,7 +18,7 @@ Meteor.methods({
             createdAt: new Date,
             userId: this.userId,
             personal,
-            isChecked: false
+            situation: 'Cadastrada'
         })
     },
 
@@ -54,26 +54,48 @@ Meteor.methods({
 
         TasksCollection.remove(taskId);
     },
-    'tasks.setIsChecked'(taskId, isChecked) {
+
+    'tasks.situation'(taskId, situation) {
         check(taskId, String)
-        check(isChecked, Boolean);
+        check(situation, String)
 
         if (!this.userId) {
-            throw new Meteor.Error('Not authorized.');
+            throw new Meteor.Error('Not authorized.');    
         }
-
+        
         const task = TasksCollection.findOne({ _id: taskId, userId: this.userId });
 
-        if (!task) {
-            throw new Meteor.Error('Access denied.');
-        }
+            if (!task) {
+                throw new Meteor.Error('Access denied.');
+            }
+    
+            TasksCollection.update(taskId, {
+                $set: {
+                    situation: situation
+                } 
+            });
+        },
 
-        TasksCollection.update(taskId, {
-            $set: {
-                isChecked
-            } 
-        });
-    },
+    // 'tasks.setIsChecked'(taskId, isChecked) {
+    //     check(taskId, String)
+    //     check(isChecked, Boolean);
+
+    //     if (!this.userId) {
+    //         throw new Meteor.Error('Not authorized.');
+    //     }
+
+    //     const task = TasksCollection.findOne({ _id: taskId, userId: this.userId });
+
+    //     if (!task) {
+    //         throw new Meteor.Error('Access denied.');
+    //     }
+
+    //     TasksCollection.update(taskId, {
+    //         $set: {
+    //             isChecked
+    //         } 
+    //     });
+
     // 'user.edit'(userId, username, email, data, sexo, empresa) {
 
     //     Meteor.users.update(userId, {
