@@ -1,7 +1,7 @@
 import { Meteor } from 'meteor/meteor';
 import { TasksCollection } from '/imports/db/TasksCollection';
 
-Meteor.publish('tasks', function publishTasks(task) {
+Meteor.publish('tasks', function publishTasks(task, LIMIT, offset) {
 
   // const todas = {$nor: [{$and: [{personal: false}, {userId: this.userId, personal: true}, {userId: {$ne: this.userId}}]}]}
 
@@ -19,14 +19,14 @@ Meteor.publish('tasks', function publishTasks(task) {
       $and: [
         {task: task}
       ]
-    }, {sort: {priority: 1}, skip: 0, limit: 4})
+    }, {sort: {priority: 1}, skip: offset, limit: LIMIT})
   } else {
     return TasksCollection.find({
       $or: [
         {personal: false},
         {userId: this.userId, personal: true}
       ]
-    },{sort: {priority: 1}, skip: 0, limit: 4})
+    }, {sort: {priority: 1}, skip: offset, limit: LIMIT})
   }
 
   //   return TasksCollection.find({
@@ -38,13 +38,16 @@ Meteor.publish('tasks', function publishTasks(task) {
 
 });
 
-Meteor.publish('tasks-count', function countTasks() {
+// Meteor.publish('tasks-count', function countTasks() {
 
-  const personal = {personal: true}
+//   return TasksCollection.find({
+//     $or: [
+//       {personal: false},
+//       {userId: this.userId, personal: true}
+//     ]
+//   })
 
-  return TasksCollection.find({})
-
-});
+// });
 
     // $nor: [{$and: [{userId: {$ne: this.userId}}, { personal:{$eq: true}}]}]
     // $or: [{personal: false}, {userId: this.userId, personal: true}]

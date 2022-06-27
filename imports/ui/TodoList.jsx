@@ -11,23 +11,23 @@ import { Button } from '@mui/material';
 import { useHistory } from "react-router-dom";
 import TextField from '@mui/material/TextField';
 
+import Pagination from './components/Pagination';
+
 const deleteTask = ({ _id }) => Meteor.call('tasks.remove', _id)
 const editTask = ({ task, taskSubtitle, _id }) => Meteor.call('tasks.edit', task, taskSubtitle, _id)
 const situationTask = ({ _id, situation }) => Meteor.call('tasks.setSituation', _id, situation);
 
+const LIMIT = 4;
+
 export default function TodoList() {  
+
+    const [offset, setOffset] = useState(0);
 
     const user = useTracker(()=> Meteor.user())
 
     const [hideCompleted, setHideCompleted] = useState(false);
 
     const hideCompletedFilter = { situation: { $ne: 'Concluida'} };
-
-    // const [hideCompleted, setHideCompleted] = useState(false);
-
-    // const hideCompletedFilter = { isChecked: { $ne: true} };
-
-    // const userFilter = user ? {userId: user._id} : {}
 
     const nadaFilter = {}
     const pendingOnlyFilter = {...hideCompletedFilter};
@@ -41,19 +41,17 @@ export default function TodoList() {
         if (!Meteor.user()) {
         return noDataAvailable;
     }
-        const handler = Meteor.subscribe('tasks', search);
+        const handler = Meteor.subscribe('tasks', search, LIMIT, offset);
         if (!handler.ready()) {
             return { ...noDataAvailable};
         }
 
-        const itens = TasksCollection.find(hideCompleted ? pendingOnlyFilter : nadaFilter ).fetch();
-            // {
-            //   sort: { createdAt: -1 },
-            // }).fetch();
+        const itens = TasksCollection.find(hideCompleted ? pendingOnlyFilter : nadaFilter,
+            {
+              sort: { createdAt: -1 },
+            }).fetch();
         return {itens};
     })
-
-    
 
     const generateList = () => {
         // return itens.map((e,index) => SingleCard(e, index))
@@ -101,6 +99,15 @@ export default function TodoList() {
                     />
                 </Button>
             </Box>
+
+            <Box>
+                <Pagination
+                    limit={LIMIT}
+                    total={12}
+                    offset={offset}
+                    setOffset={setOffset}
+                />
+            </Box> 
         </Box>   
     )
 }
